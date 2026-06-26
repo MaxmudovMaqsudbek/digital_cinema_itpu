@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: digital_cinema
+
+  jpa:
+    open-in-view: false
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/digital_cinema
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
