@@ -4,9 +4,23 @@ spring:
 
   jpa:
     open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: base_schema
 
   datasource:
     url: jdbc:postgresql://localhost:5432/digital_cinema
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      schema: base_schema
+      connection-init-sql: CREATE SCHEMA IF NOT EXISTS base_schema
+
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/db.changelog.xml
+    default-schema: base_schema
+    liquibase-schema: base_schema
