@@ -1,55 +1,118 @@
-# Digital Cinema - Session 1: Project Setup vs Configuration
+# Digital Cinema Backend
 
 ## Overview
 
-This project is the backend implementation of a **Digital Cinema Booking System** developed using **Spring Boot**. Session 1 focuses on setting up the project, configuring the development environment, and verifying database connectivity.
+This project is the backend for a Digital Cinema booking system built with Spring Boot.
 
-## Completed Tasks
+Current state covers:
 
-* Generated the project using **Spring Initializr**.
-* Added required dependencies:
+- Session 1: project setup and database connectivity
+- Session 2: data layer and persistence (Liquibase + JPA entities + repositories)
 
-    * Spring Web
-    * Spring Data JPA
-    * PostgreSQL Driver
-    * Lombok
-* Organized the project structure:
+## Week 2 (Session 2) Implementation
 
-    * `controller`
-    * `service`
-    * `repository`
-    * `entity`
-    * `config`
-* Configured a **PostgreSQL** database.
-* Configured application settings using `application.yml`.
-* Used environment variables for sensitive database credentials.
-* Successfully started the Spring Boot application.
-* Verified the connection between the application and the PostgreSQL database.
+### 1) Liquibase and JPA Configuration
 
-## Technologies
+Implemented in `src/main/resources/application.yaml`:
 
-* Java 17
-* Spring Boot 3.5.16
-* Spring Data JPA
-* PostgreSQL
-* Maven
-* Lombok
+- Liquibase is enabled with changelog path `classpath:/db/db.changelog.xml`
+- `default-schema` and `liquibase-schema` are set to `base_schema`
+- Hikari uses `schema: base_schema`
+- Hikari auto-creates schema on first connection:
+    `connection-init-sql: CREATE SCHEMA IF NOT EXISTS base_schema`
+- JPA validates mappings against DB schema:
+    `spring.jpa.hibernate.ddl-auto: validate`
 
-## Project Structure
+### 2) Liquibase Changelog
 
-```
-src
-├── main
-│   ├── java
-│   │   └── controller
-│   │   └── service
-│   │   └── repository
-│   │   └── entity
-│   │   └── config
-│   └── resources
-│       └── application.yml
-```
+Implemented files:
 
-## Status
+- `src/main/resources/db/db.changelog.xml`
+- `src/main/resources/db/changelog/init_script.xml`
+- `src/main/resources/db/changelog/init_script.sql`
 
-✅ Session 1 completed successfully. The project is configured, connected to PostgreSQL, and ready for implementing entities and persistence in Session 2.
+The SQL changelog creates all required tables and indexes in `base_schema`:
+
+- `cinemas`
+- `halls`
+- `movies`
+- `movie_genres`
+- `price_category`
+- `seats`
+- `sessions`
+- `session_seats`
+
+### 3) Enum Classes
+
+Implemented in `src/main/java/com/itpu/internship2/digital_cinema/util`:
+
+- `AgeRating`
+- `Genre`
+- `MovieLang`
+- `MovieFormat`
+- `PriceCategory`
+- `SeatStatus`
+
+### 4) JPA Entities and Relationships
+
+Implemented in `src/main/java/com/itpu/internship2/digital_cinema/entity`:
+
+- `CinemaEntity`
+- `HallEntity`
+- `MovieEntity`
+- `MovieGenreEntity`
+- `MovieGenreId`
+- `PriceCategoryEntity`
+- `SeatEntity`
+- `SessionEntity`
+- `SessionSeatEntity`
+
+Implemented relationships:
+
+- Cinema 1:N Hall
+- Hall 1:N Seat
+- Hall 1:N Session
+- Movie 1:N Session
+- Movie 1:N MovieGenre
+- PriceCategory 1:N Seat
+- Session 1:N SessionSeat
+- Seat 1:N SessionSeat
+
+### 5) Repository Interfaces
+
+Implemented in `src/main/java/com/itpu/internship2/digital_cinema/repository`:
+
+- `CinemaRepository`
+- `HallRepository`
+- `MovieRepository`
+- `MovieGenreRepository`
+- `PriceCategoryRepository`
+- `SeatRepository`
+- `SessionRepository`
+- `SessionSeatRepository`
+
+## Tech Stack
+
+- Java 17
+- Spring Boot 3.5.15
+- Spring Data JPA
+- Liquibase
+- PostgreSQL
+- Maven
+- Lombok
+
+## Validation Status
+
+- `mvn clean compile` passed
+- `mvn test` passed
+- Liquibase migration runs successfully
+- Spring Data JPA detects all implemented repositories
+
+## Next Planned Scope
+
+Session 3 focuses on business logic and API layer:
+
+- services and transactions
+- DTOs and mappers
+- REST controllers
+- validation and error handling
