@@ -93,7 +93,7 @@ Implemented in `src/main/java/com/itpu/internship2/digital_cinema/repository`:
 
 ## Tech Stack
 
-- Java 17
+- Java 21
 - Spring Boot 3.5.15
 - Spring Data JPA
 - Liquibase

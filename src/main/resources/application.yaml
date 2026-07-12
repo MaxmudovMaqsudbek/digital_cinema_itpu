@@ -24,3 +24,12 @@ spring:
     change-log: classpath:/db/db.changelog.xml
     default-schema: base_schema
     liquibase-schema: base_schema
+
+  
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tage-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
