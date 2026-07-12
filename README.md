@@ -4,115 +4,291 @@
 
 This project is the backend for a Digital Cinema booking system built with Spring Boot.
 
-Current state covers:
+Current implementation includes:
 
-- Session 1: project setup and database connectivity
-- Session 2: data layer and persistence (Liquibase + JPA entities + repositories)
+- Week 1: Project setup and database connectivity
+- Week 2: Persistence layer (Liquibase, JPA entities, repositories)
+- Week 3: Business logic and REST API layer
 
-## Week 2 (Session 2) Implementation
+---
 
-### 1) Liquibase and JPA Configuration
+# Week 2 Implementation
 
-Implemented in `src/main/resources/application.yaml`:
+## 1. Liquibase and JPA Configuration
 
-- Liquibase is enabled with changelog path `classpath:/db/db.changelog.xml`
-- `default-schema` and `liquibase-schema` are set to `base_schema`
-- Hikari uses `schema: base_schema`
-- Hikari auto-creates schema on first connection:
-    `connection-init-sql: CREATE SCHEMA IF NOT EXISTS base_schema`
-- JPA validates mappings against DB schema:
-    `spring.jpa.hibernate.ddl-auto: validate`
+Implemented in:
 
-### 2) Liquibase Changelog
+`src/main/resources/application.yaml`
 
-Implemented files:
+Features:
 
-- `src/main/resources/db/db.changelog.xml`
-- `src/main/resources/db/changelog/init_script.xml`
-- `src/main/resources/db/changelog/init_script.sql`
+- Liquibase enabled using `classpath:/db/db.changelog.xml`
+- `default-schema` and `liquibase-schema` configured as `base_schema`
+- HikariCP configured with `schema: base_schema`
+- Automatic schema creation on first connection
+- Hibernate validation enabled using:
 
-The SQL changelog creates all required tables and indexes in `base_schema`:
+```yaml
+spring.jpa.hibernate.ddl-auto=validate
+```
 
-- `cinemas`
-- `halls`
-- `movies`
-- `movie_genres`
-- `price_category`
-- `seats`
-- `sessions`
-- `session_seats`
+## 2. Liquibase Changelog
 
-### 3) Enum Classes
+Implemented:
 
-Implemented in `src/main/java/com/itpu/internship2/digital_cinema/util`:
+- `db/db.changelog.xml`
+- `db/changelog/init_script.xml`
+- `db/changelog/init_script.sql`
 
-- `AgeRating`
-- `Genre`
-- `MovieLang`
-- `MovieFormat`
-- `PriceCategory`
-- `SeatStatus`
+Database objects:
 
-### 4) JPA Entities and Relationships
+- cinemas
+- halls
+- movies
+- movie_genres
+- price_category
+- seats
+- sessions
+- session_seats
 
-Implemented in `src/main/java/com/itpu/internship2/digital_cinema/entity`:
+including indexes and foreign key constraints.
 
-- `CinemaEntity`
-- `HallEntity`
-- `MovieEntity`
-- `MovieGenreEntity`
-- `MovieGenreId`
-- `PriceCategoryEntity`
-- `SeatEntity`
-- `SessionEntity`
-- `SessionSeatEntity`
+## 3. Enum Classes
+
+Implemented in:
+
+`src/main/java/com/itpu/internship2/digital_cinema/util`
+
+- AgeRating
+- Genre
+- MovieLang
+- MovieFormat
+- PriceCategory
+- SeatStatus
+
+## 4. JPA Entities
+
+Implemented:
+
+- CinemaEntity
+- HallEntity
+- MovieEntity
+- MovieGenreEntity
+- MovieGenreId
+- PriceCategoryEntity
+- SeatEntity
+- SessionEntity
+- SessionSeatEntity
 
 Implemented relationships:
 
-- Cinema 1:N Hall
-- Hall 1:N Seat
-- Hall 1:N Session
-- Movie 1:N Session
-- Movie 1:N MovieGenre
-- PriceCategory 1:N Seat
-- Session 1:N SessionSeat
-- Seat 1:N SessionSeat
+- Cinema → Hall
+- Hall → Seat
+- Hall → Session
+- Movie → Session
+- Movie → MovieGenre
+- PriceCategory → Seat
+- Session → SessionSeat
+- Seat → SessionSeat
 
-### 5) Repository Interfaces
+## 5. Repository Layer
 
-Implemented in `src/main/java/com/itpu/internship2/digital_cinema/repository`:
+Implemented Spring Data JPA repositories:
 
-- `CinemaRepository`
-- `HallRepository`
-- `MovieRepository`
-- `MovieGenreRepository`
-- `PriceCategoryRepository`
-- `SeatRepository`
-- `SessionRepository`
-- `SessionSeatRepository`
+- CinemaRepository
+- HallRepository
+- MovieRepository
+- MovieGenreRepository
+- PriceCategoryRepository
+- SeatRepository
+- SessionRepository
+- SessionSeatRepository
 
-## Tech Stack
+---
+
+# Week 3 Implementation
+
+## 1. REST Controllers
+
+Implemented CRUD REST controllers for:
+
+- Movie
+- Seat
+- Session
+- SessionSeat
+
+Features:
+
+- RESTful endpoints
+- ResponseEntity responses
+- Pagination support
+- Bean Validation
+- OpenAPI annotations
+
+## 2. DTO Layer
+
+Implemented request and response DTOs:
+
+- SaveMovieDTO / GetMovieDTO
+- SaveSeatDTO / GetSeatDTO
+- SaveSessionDTO / GetSessionDTO
+- SaveSessionSeatDTO / GetSessionSeatDTO
+
+Features:
+
+- Bean Validation
+- Swagger documentation
+- Separation of API models from JPA entities
+
+## 3. Mapper Layer
+
+Implemented manual mapper classes:
+
+- MovieMapper
+- SeatMapper
+- SessionMapper
+- SessionSeatMapper
+
+Responsibilities:
+
+- Entity → DTO
+- DTO → Entity
+- Entity update from DTO
+
+## 4. Service Layer
+
+Implemented business services:
+
+- MovieService
+- SeatService
+- SessionService
+- SessionSeatService
+
+Features:
+
+- Transaction management
+- Business logic
+- Entity loading
+- DTO mapping
+- Logging
+- Exception handling
+
+## 5. Global Exception Handling
+
+Implemented:
+
+- ApiException
+- ResourceNotFoundException
+- ResourceAlreadyExistsException
+- BusinessException
+- ValidationException
+- GlobalExceptionHandler
+
+Features:
+
+- Consistent REST error responses
+- HTTP status mapping
+- Validation error handling
+
+## 6. Swagger / OpenAPI
+
+Configured OpenAPI documentation with:
+
+- SpringDoc OpenAPI
+- Swagger UI
+- Controller documentation
+- DTO schema documentation
+
+Swagger UI:
+
+```
+http://localhost:8080/swagger-ui.html
+```
+
+---
+
+# Testing
+
+Implemented comprehensive automated testing including:
+
+- Service unit tests
+- Controller tests using MockMvc
+- Mapper unit tests
+- GlobalExceptionHandler tests
+- Shared TestDataFactory
+
+Test suite includes:
+
+- JUnit 5
+- Mockito
+- Spring Boot Test
+- MockMvc
+- JaCoCo code coverage
+
+---
+
+# Tech Stack
 
 - Java 21
 - Spring Boot 3.5.15
 - Spring Data JPA
+- Spring Validation
+- SpringDoc OpenAPI
 - Liquibase
 - PostgreSQL
 - Maven
 - Lombok
+- JUnit 5
+- Mockito
+- MockMvc
+- JaCoCo
 
-## Validation Status
+---
 
-- `mvn clean compile` passed
-- `mvn test` passed
-- Liquibase migration runs successfully
-- Spring Data JPA detects all implemented repositories
+# Build & Verification
 
-## Next Planned Scope
+Successful verification includes:
 
-Session 3 focuses on business logic and API layer:
+- `mvn clean compile`
+- `mvn clean test`
+- `mvn clean install`
+- Liquibase migrations
+- Spring Boot application startup
+- Swagger UI generation
+- Automated test suite execution
 
-- services and transactions
-- DTOs and mappers
-- REST controllers
-- validation and error handling
+---
+
+# Project Structure
+
+```
+src/main/java/com/itpu/internship2/digital_cinema
+├── config
+├── controller
+├── dto
+├── entity
+├── exception
+├── mapper
+├── repository
+├── service
+└── util
+
+src/test/java/com/itpu/internship2/digital_cinema
+├── controller
+├── exception
+├── fixture
+├── mapper
+└── service
+```
+
+---
+
+# Current Status
+
+✅ Week 1 completed
+
+✅ Week 2 completed
+
+✅ Week 3 completed
+
+The project now includes a fully functional persistence layer, business logic layer, REST API, OpenAPI documentation, centralized exception handling, and a comprehensive automated test suite.
