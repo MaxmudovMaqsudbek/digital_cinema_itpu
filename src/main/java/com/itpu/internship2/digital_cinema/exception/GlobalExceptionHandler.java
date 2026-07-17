@@ -56,6 +56,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", ex.getMessage()));
     }
 
+    @ExceptionHandler(org.springframework.data.mapping.PropertyReferenceException.class)
+    public ResponseEntity<Map<String, String>> handlePropertyReferenceException(org.springframework.data.mapping.PropertyReferenceException ex) {
+        log.error("Invalid sort property: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", ex.getMessage()));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGeneralException(Exception ex) {
         log.error("Internal server error: ", ex);
