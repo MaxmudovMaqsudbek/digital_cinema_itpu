@@ -52,6 +52,18 @@ public class SessionSeatController {
         return ResponseEntity.ok(sessionSeatService.getAll(pageable));
     }
 
+    @Operation(summary = "Get all session seats by session ID", description = "Returns a list of all assigned seats for a particular screening session.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of session seats returned successfully"),
+            @ApiResponse(responseCode = "404", description = "Session not found")
+    })
+    @GetMapping("/session/{sessionId}")
+    public ResponseEntity<java.util.List<GetSessionSeatDTO>> getSessionSeatsBySessionId(
+            @Parameter(description = "Numeric ID of the session", required = true)
+            @PathVariable Long sessionId) {
+        return ResponseEntity.ok(sessionSeatService.getAllBySessionId(sessionId));
+    }
+
     @Operation(summary = "Get a session seat by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Session seat retrieved successfully"),

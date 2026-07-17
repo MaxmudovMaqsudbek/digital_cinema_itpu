@@ -20,7 +20,7 @@ public class SpringConfig {
                 .info(new Info()
                         .title("Digital Cinema API")
                         .description("REST API for cinema seats reservation: manage places, movies, and sessions.")
-                        .version("1.0.0")
+                        .version("1.1.0")
                         .contact(new Contact()
                                 .name("ITPU Student - Maksudbek Makhmudov")
                                 .email("Maksudbek_Makhmudov@student.itpu.uz"))

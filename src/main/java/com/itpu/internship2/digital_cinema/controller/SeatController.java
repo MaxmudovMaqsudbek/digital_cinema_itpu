@@ -52,6 +52,18 @@ public class SeatController {
         return ResponseEntity.ok(seatService.getAll(pageable));
     }
 
+    @Operation(summary = "Get all places by hall ID", description = "Returns a list of all cinema seats for the specified hall ID, with nulls representing empty gaps.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of places returned successfully"),
+            @ApiResponse(responseCode = "404", description = "Hall not found")
+    })
+    @GetMapping("/hall/{hallId}")
+    public ResponseEntity<java.util.List<GetSeatDTO>> getAllPlacesByHallId(
+            @Parameter(description = "Numeric ID of the hall", required = true)
+            @PathVariable Long hallId) {
+        return ResponseEntity.ok(seatService.getAllPlacesByHallId(hallId));
+    }
+
     @Operation(summary = "Get a seat by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Seat retrieved successfully"),

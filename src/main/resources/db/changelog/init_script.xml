@@ -13,4 +13,10 @@
 
     </changeSet>
 
+    <changeSet id="2" author="Maksudbek">
+        <sqlFile
+                path="002-insert-initial-data.sql"
+                relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>

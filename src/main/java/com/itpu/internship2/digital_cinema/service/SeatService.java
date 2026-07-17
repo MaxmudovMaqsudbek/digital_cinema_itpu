@@ -17,6 +17,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -46,6 +51,46 @@ public class SeatService {
         log.info("Reading all seats");
         return seatRepository.findAll(pageable)
                 .map(seatMapper::buildDTOFromEntity);
+    }
+
+    @Transactional(readOnly = true)
+    public List<GetSeatDTO> getAllPlacesByHallId(Long hallId) {
+        log.info("Reading all places for hall id: {}", hallId);
+        if (!hallRepository.existsById(hallId)) {
+            throw new ResourceNotFoundException("Hall not found with id: " + hallId);
+        }
+
+        List<SeatEntity> seats = seatRepository.findAllByHallId(hallId);
+        seats.sort(Comparator.comparing(SeatEntity::getRow)
+                .thenComparing(SeatEntity::getNumber));
+
+        return buildPlacesWithGaps(seats);
+    }
+
+    private List<GetSeatDTO> buildPlacesWithGaps(List<SeatEntity> seats) {
+        List<GetSeatDTO> result = new java.util.ArrayList<>();
+        if (seats.isEmpty()) return result;
+
+        Map<Integer, List<SeatEntity>> groupedByRow = seats.stream()
+                .collect(Collectors.groupingBy(SeatEntity::getRow));
+
+        List<Integer> sortedRows = new java.util.ArrayList<>(groupedByRow.keySet());
+        java.util.Collections.sort(sortedRows);
+
+        for (Integer row : sortedRows) {
+            List<SeatEntity> rowSeats = groupedByRow.get(row);
+            int currentExpectedNumber = 1;
+
+            for (SeatEntity seat : rowSeats) {
+                while (currentExpectedNumber < seat.getNumber()) {
+                    result.add(null);
+                    currentExpectedNumber++;
+                }
+                result.add(seatMapper.buildDTOFromEntity(seat));
+                currentExpectedNumber++;
+            }
+        }
+        return result;
     }
 
     @Transactional(readOnly = true)

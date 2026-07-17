@@ -49,6 +49,17 @@ public class SessionSeatService {
     }
 
     @Transactional(readOnly = true)
+    public java.util.List<GetSessionSeatDTO> getAllBySessionId(Long sessionId) {
+        log.info("Reading all session seats for session id: {}", sessionId);
+        if (!sessionRepository.existsById(sessionId)) {
+            throw new ResourceNotFoundException("Session not found with id: " + sessionId);
+        }
+        return sessionSeatRepository.findAllBySessionId(sessionId).stream()
+                .map(sessionSeatMapper::buildDTOFromEntity)
+                .collect(java.util.stream.Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public GetSessionSeatDTO getById(Long id) {
         log.info("Reading session seat by id: {}", id);
         SessionSeatEntity entity = sessionSeatRepository.findById(id)
