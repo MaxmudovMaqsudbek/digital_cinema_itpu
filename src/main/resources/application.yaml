@@ -2,6 +2,9 @@ spring:
   application:
     name: digital_cinema
 
+server:
+  port: 8082
+
   jpa:
     open-in-view: false
     hibernate:
