@@ -48,7 +48,7 @@ public class SessionController {
             @ApiResponse(responseCode = "200", description = "Sessions retrieved successfully")
     })
     @GetMapping
-    public ResponseEntity<Page<GetSessionDTO>> getAll(@Parameter(description = "Pagination parameters") Pageable pageable) {
+    public ResponseEntity<Page<GetSessionDTO>> getAll(Pageable pageable) {
         return ResponseEntity.ok(sessionService.getAll(pageable));
     }
 
