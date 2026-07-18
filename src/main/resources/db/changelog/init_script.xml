@@ -24,5 +24,10 @@
                 path="003-expand-seed-data.sql"
                 relativeToChangelogFile="true"/>
     </changeSet>
+    <changeSet id="4" author="Maksudbek">
+        <sqlFile
+                path="004-fix-poster-urls.sql"
+                relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>
