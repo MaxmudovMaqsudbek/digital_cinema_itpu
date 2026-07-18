@@ -166,6 +166,30 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>3.2.5</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<argLine>
+						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.22/aspectjweaver-1.9.22.jar"
+					</argLine>
+					<systemProperties>
+						<property>
+							<name>allure.results.directory</name>
+							<value>${project.build.directory}/allure-results</value>
+						</property>
+					</systemProperties>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
