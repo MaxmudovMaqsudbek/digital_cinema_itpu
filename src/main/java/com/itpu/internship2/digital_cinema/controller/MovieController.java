@@ -48,7 +48,8 @@ public class MovieController {
             @ApiResponse(responseCode = "200", description = "Movies retrieved successfully")
     })
     @GetMapping
-    public ResponseEntity<Page<GetMovieDTO>> getAll(Pageable pageable) {
+    public ResponseEntity<Page<GetMovieDTO>> getAll(
+            @Parameter(example = "{\"page\": 0, \"size\": 10}") Pageable pageable) {
         return ResponseEntity.ok(movieService.getAll(pageable));
     }
 
