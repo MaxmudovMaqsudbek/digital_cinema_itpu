@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +49,7 @@ public class SessionSeatController {
             @ApiResponse(responseCode = "200", description = "Session seats retrieved successfully")
     })
     @GetMapping
-    public ResponseEntity<Page<GetSessionSeatDTO>> getAll(Pageable pageable) {
+    public ResponseEntity<Page<GetSessionSeatDTO>> getAll(@ParameterObject Pageable pageable) {
         return ResponseEntity.ok(sessionSeatService.getAll(pageable));
     }
 
