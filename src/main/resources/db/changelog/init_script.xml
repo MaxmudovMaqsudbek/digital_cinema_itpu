@@ -29,5 +29,10 @@
                 path="004-fix-poster-urls.sql"
                 relativeToChangelogFile="true"/>
     </changeSet>
+    <changeSet id="5" author="Maksudbek">
+        <sqlFile
+                path="005-fix-godfather-poster.sql"
+                relativeToChangelogFile="true"/>
+    </changeSet>
 
 </databaseChangeLog>
