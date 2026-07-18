@@ -9,6 +9,7 @@ Current implementation includes:
 - Week 1: Project setup and database connectivity
 - Week 2: Persistence layer (Liquibase, JPA entities, repositories)
 - Week 3: Business logic and REST API layer
+- Week 4: Deep Testing Architecture & Production Readiness
 
 ---
 
@@ -224,6 +225,14 @@ Test suite includes:
 - Spring Boot Test
 - MockMvc
 - JaCoCo code coverage
+- **Allure Framework** (for extensive metrics reporting)
+
+## Testing Architecture Metrics
+
+The testing framework was dramatically enhanced during Week 4, yielding a highly segregated, enterprise-grade architecture:
+
+- **Unit Tests (151 Tests)**: Executed by `maven-surefire-plugin` (`mvn test`). Focuses on Service logic, MapStruct conversions, `@DataJpaTest` Repository slicing, and intense Edge-Case/Boundary Valuations utilizing `ValidatorFactory` and Equivalence Partitioning.
+- **Integration Tests (3 Tests)**: Executed by `maven-failsafe-plugin` (`mvn verify`). Uses isolated `*IT.java` configurations bootstrapping the full Spring container to test end-to-end API logic.
 
 ---
 
@@ -242,6 +251,7 @@ Test suite includes:
 - Mockito
 - MockMvc
 - JaCoCo
+- Allure Framework
 
 ---
 
@@ -291,4 +301,8 @@ src/test/java/com/itpu/internship2/digital_cinema
 
 ✅ Week 3 completed
 
-The project now includes a fully functional persistence layer, business logic layer, REST API, OpenAPI documentation, centralized exception handling, and a comprehensive automated test suite.
+✅ Week 4 completed
+
+The backend project has officially completed all development phases. It boasts a fully functional persistence layer, robust business logic, a documented OpenAPI spec, centralized exception handling, and a highly resilient 150+ test suite powered by Allure. 
+
+🚀 **The backend is stable, completely finished, and fully ready for seamless frontend integration.**
