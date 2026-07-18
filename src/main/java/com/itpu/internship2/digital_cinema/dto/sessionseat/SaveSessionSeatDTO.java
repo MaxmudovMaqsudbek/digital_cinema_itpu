@@ -17,26 +17,26 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SaveSessionSeatDTO {
 
-    @Schema(description = "Session ID", example = "1")
+    @Schema(description = "Session ID", example = "4")
     @NotNull
     private Long sessionId;
 
-    @Schema(description = "Seat ID", example = "1")
+    @Schema(description = "Seat ID", example = "101")
     @NotNull
     private Long seatId;
 
-    @Schema(description = "Status of the seat for this session", example = "BOOKED")
+    @Schema(description = "Status of the seat for this session", example = "ACTIVE")
     private SeatStatus status;
 
-    @Schema(description = "Availability status reason", example = "Reserved for VIP")
+    @Schema(description = "Is the seat still available (true/false)", example = "false")
     @Size(max = 50)
     private String isAvailable;
 
-    @Schema(description = "Customer name", example = "John Doe")
+    @Schema(description = "Customer full name", example = "Maksudbek Makhmudov")
     @Size(max = 255)
     private String customerName;
 
-    @Schema(description = "Customer contact information", example = "+1234567890")
+    @Schema(description = "Customer phone number", example = "+998901234567")
     @Size(max = 255)
     private String contact;
 }

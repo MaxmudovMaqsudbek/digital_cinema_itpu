@@ -19,4 +19,10 @@
                 relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="3" author="Maksudbek">
+        <sqlFile
+                path="003-expand-seed-data.sql"
+                relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
