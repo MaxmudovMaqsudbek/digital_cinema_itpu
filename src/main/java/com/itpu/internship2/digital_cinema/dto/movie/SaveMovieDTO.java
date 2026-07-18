@@ -20,31 +20,33 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SaveMovieDTO {
 
-    @Schema(description = "Movie title", example = "The Matrix")
+    @Schema(description = "Movie title", example = "Inception")
     @NotBlank
     @Size(max = 500)
     private String title;
 
-    @Schema(description = "Duration in minutes", example = "136")
+    @Schema(description = "Duration in minutes", example = "148")
     @Positive
     private Integer durationMinutes;
 
-    @Schema(description = "Age rating", example = "R")
+    @Schema(description = "Age rating", example = "PG_13")
     private AgeRating ageRating;
 
-    @Schema(description = "Movie rating", example = "8.7")
+    @Schema(description = "Movie rating out of 10", example = "8.8")
     @Min(0)
     @Max(10)
     private Float rating;
 
-    @Schema(description = "URL to the movie poster", example = "https://example.com/matrix.jpg")
+    @Schema(description = "URL to the movie poster",
+            example = "https://m.media-amazon.com/images/M/MV5BMzEwYTg2NTMtMTUzYy00ZjE4LThmMjEtZDUyZWM4NzE5MGE5XkEyXkFqcGc@._V1_FMjpg_UY2835_.jpg")
     @Size(max = 1000)
     private String posterUrl;
 
-    @Schema(description = "Movie description", example = "A computer hacker learns from mysterious rebels about the true nature of his reality...")
+    @Schema(description = "Movie description",
+            example = "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a CEO.")
     private String description;
 
-    @Schema(description = "Release year", example = "1999")
+    @Schema(description = "Release year", example = "2010")
     @Min(1900)
     private Integer releaseYear;
 }

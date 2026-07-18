@@ -18,20 +18,20 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SaveSeatDTO {
 
-    @Schema(description = "Hall ID where the seat is located", example = "1")
+    @Schema(description = "Hall ID where the seat is located", example = "14")
     @NotNull
     private Long hallId;
 
-    @Schema(description = "Price Category ID for the seat", example = "1")
+    @Schema(description = "Price Category ID for the seat", example = "2")
     @NotNull
     private Long priceCategoryId;
 
-    @Schema(description = "Row number", example = "5")
+    @Schema(description = "Row number", example = "3")
     @NotNull
     @Positive
     private Integer row;
 
-    @Schema(description = "Seat number in the row", example = "12")
+    @Schema(description = "Seat number in the row", example = "7")
     @NotNull
     @Positive
     private Integer number;
@@ -42,7 +42,7 @@ public class SaveSeatDTO {
     @Schema(description = "Availability of the seat", example = "true")
     private Boolean isAvailable;
 
-    @Schema(description = "Additional comments", example = "VIP Seat")
+    @Schema(description = "Additional comments", example = "Front row center seat")
     @Size(max = 500)
     private String comment;
 }
