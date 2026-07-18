@@ -28,6 +28,7 @@ public class SpringConfig {
                                 .name("Apache 2.0")
                                 .url("https://www.apache.org/licenses/LICENSE-2.0")))
                 .servers(List.of(
+                        new Server().url("https://itpu-digital-cinema-2s7ce.ondigitalocean.app").description("Production server"),
                         new Server().url("http://localhost:8080").description("Local development server")
                 ));
     }

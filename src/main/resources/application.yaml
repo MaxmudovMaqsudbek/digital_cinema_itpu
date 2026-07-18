@@ -24,7 +24,7 @@ spring:
     change-log: classpath:/db/db.changelog.xml
     default-schema: base_schema
     liquibase-schema: base_schema
-    drop-first: true
+    drop-first: false
 
   
 springdoc:
