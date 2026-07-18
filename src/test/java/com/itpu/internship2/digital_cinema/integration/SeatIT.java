@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(SeatController.class)
+@WebMvcTest({SeatController.class, SessionSeatController.class})
 public class SeatIT {
 
     @Autowired
