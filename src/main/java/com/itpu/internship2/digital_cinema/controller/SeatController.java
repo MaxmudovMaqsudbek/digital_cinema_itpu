@@ -59,7 +59,7 @@ public class SeatController {
     })
     @GetMapping("/hall/{hallId}")
     public ResponseEntity<java.util.List<GetSeatDTO>> getAllPlacesByHallId(
-            @Parameter(description = "Numeric ID of the hall", required = true)
+            @Parameter(description = "Numeric ID of the hall", example = "14", required = true)
             @PathVariable Long hallId) {
         return ResponseEntity.ok(seatService.getAllPlacesByHallId(hallId));
     }
@@ -70,7 +70,9 @@ public class SeatController {
             @ApiResponse(responseCode = "404", description = "Seat not found")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<GetSeatDTO> getById(@PathVariable Long id) {
+    public ResponseEntity<GetSeatDTO> getById(
+            @Parameter(description = "Numeric ID of the seat", example = "101", required = true)
+            @PathVariable Long id) {
         return ResponseEntity.ok(seatService.getById(id));
     }
 
@@ -81,7 +83,9 @@ public class SeatController {
             @ApiResponse(responseCode = "404", description = "Seat not found")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<GetSeatDTO> update(@PathVariable Long id, @Valid @RequestBody SaveSeatDTO dto) {
+    public ResponseEntity<GetSeatDTO> update(
+            @Parameter(description = "Numeric ID of the seat to update", example = "101", required = true)
+            @PathVariable Long id, @Valid @RequestBody SaveSeatDTO dto) {
         return ResponseEntity.ok(seatService.update(id, dto));
     }
 
@@ -91,7 +95,9 @@ public class SeatController {
             @ApiResponse(responseCode = "404", description = "Seat not found")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(
+            @Parameter(description = "Numeric ID of the seat to delete", example = "810", required = true)
+            @PathVariable Long id) {
         seatService.delete(id);
         return ResponseEntity.noContent().build();
     }

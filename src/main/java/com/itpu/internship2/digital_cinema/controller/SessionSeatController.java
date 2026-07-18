@@ -59,7 +59,7 @@ public class SessionSeatController {
     })
     @GetMapping("/session/{sessionId}")
     public ResponseEntity<java.util.List<GetSessionSeatDTO>> getSessionSeatsBySessionId(
-            @Parameter(description = "Numeric ID of the session", required = true)
+            @Parameter(description = "Numeric ID of the session", example = "4", required = true)
             @PathVariable Long sessionId) {
         return ResponseEntity.ok(sessionSeatService.getAllBySessionId(sessionId));
     }
@@ -70,7 +70,9 @@ public class SessionSeatController {
             @ApiResponse(responseCode = "404", description = "Session seat not found")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<GetSessionSeatDTO> getById(@PathVariable Long id) {
+    public ResponseEntity<GetSessionSeatDTO> getById(
+            @Parameter(description = "Numeric ID of the session seat", example = "601", required = true)
+            @PathVariable Long id) {
         return ResponseEntity.ok(sessionSeatService.getById(id));
     }
 
@@ -81,7 +83,9 @@ public class SessionSeatController {
             @ApiResponse(responseCode = "404", description = "Session seat not found")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<GetSessionSeatDTO> update(@PathVariable Long id, @Valid @RequestBody SaveSessionSeatDTO dto) {
+    public ResponseEntity<GetSessionSeatDTO> update(
+            @Parameter(description = "Numeric ID of the session seat to update", example = "601", required = true)
+            @PathVariable Long id, @Valid @RequestBody SaveSessionSeatDTO dto) {
         return ResponseEntity.ok(sessionSeatService.update(id, dto));
     }
 
@@ -91,7 +95,9 @@ public class SessionSeatController {
             @ApiResponse(responseCode = "404", description = "Session seat not found")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(
+            @Parameter(description = "Numeric ID of the session seat to delete", example = "626", required = true)
+            @PathVariable Long id) {
         sessionSeatService.delete(id);
         return ResponseEntity.noContent().build();
     }

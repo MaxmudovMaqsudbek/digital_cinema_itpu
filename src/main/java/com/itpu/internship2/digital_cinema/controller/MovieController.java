@@ -58,7 +58,9 @@ public class MovieController {
             @ApiResponse(responseCode = "404", description = "Movie not found")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<GetMovieDTO> getById(@PathVariable Long id) {
+    public ResponseEntity<GetMovieDTO> getById(
+            @Parameter(description = "Numeric ID of the movie", example = "45", required = true)
+            @PathVariable Long id) {
         return ResponseEntity.ok(movieService.getById(id));
     }
 
@@ -69,7 +71,9 @@ public class MovieController {
             @ApiResponse(responseCode = "404", description = "Movie not found")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<GetMovieDTO> update(@PathVariable Long id, @Valid @RequestBody SaveMovieDTO dto) {
+    public ResponseEntity<GetMovieDTO> update(
+            @Parameter(description = "Numeric ID of the movie to update", example = "45", required = true)
+            @PathVariable Long id, @Valid @RequestBody SaveMovieDTO dto) {
         return ResponseEntity.ok(movieService.update(id, dto));
     }
 
@@ -79,7 +83,9 @@ public class MovieController {
             @ApiResponse(responseCode = "404", description = "Movie not found")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(
+            @Parameter(description = "Numeric ID of the movie to delete", example = "56", required = true)
+            @PathVariable Long id) {
         movieService.delete(id);
         return ResponseEntity.noContent().build();
     }

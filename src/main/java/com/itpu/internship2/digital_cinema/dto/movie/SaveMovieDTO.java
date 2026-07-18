@@ -38,7 +38,7 @@ public class SaveMovieDTO {
     private Float rating;
 
     @Schema(description = "URL to the movie poster",
-            example = "https://m.media-amazon.com/images/M/MV5BMzEwYTg2NTMtMTUzYy00ZjE4LThmMjEtZDUyZWM4NzE5MGE5XkEyXkFqcGc@._V1_FMjpg_UY2835_.jpg")
+            example = "https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg")
     @Size(max = 1000)
     private String posterUrl;
 

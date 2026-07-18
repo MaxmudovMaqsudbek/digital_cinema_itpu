@@ -58,7 +58,9 @@ public class SessionController {
             @ApiResponse(responseCode = "404", description = "Session not found")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<GetSessionDTO> getById(@PathVariable Long id) {
+    public ResponseEntity<GetSessionDTO> getById(
+            @Parameter(description = "Numeric ID of the session", example = "4", required = true)
+            @PathVariable Long id) {
         return ResponseEntity.ok(sessionService.getById(id));
     }
 
@@ -69,7 +71,9 @@ public class SessionController {
             @ApiResponse(responseCode = "404", description = "Session not found")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<GetSessionDTO> update(@PathVariable Long id, @Valid @RequestBody SaveSessionDTO dto) {
+    public ResponseEntity<GetSessionDTO> update(
+            @Parameter(description = "Numeric ID of the session to update", example = "4", required = true)
+            @PathVariable Long id, @Valid @RequestBody SaveSessionDTO dto) {
         return ResponseEntity.ok(sessionService.update(id, dto));
     }
 
@@ -79,7 +83,9 @@ public class SessionController {
             @ApiResponse(responseCode = "404", description = "Session not found")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(
+            @Parameter(description = "Numeric ID of the session to delete", example = "15", required = true)
+            @PathVariable Long id) {
         sessionService.delete(id);
         return ResponseEntity.noContent().build();
     }
