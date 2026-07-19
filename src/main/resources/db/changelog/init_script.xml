@@ -37,4 +37,8 @@
         <sqlFile path="006-fix-enum-values.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="7" author="Maksudbek">
+        <sqlFile path="007-reset-sequences.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
 </databaseChangeLog>
